@@ -1,0 +1,17 @@
+evaluation/dataset/
+evaluation/maest_full_predictions.csv
+evaluation/maest_top_3_predictions.csv
+evaluation/groundtruth.pk
+evaluation/pickle_read.py
+evaluation/compute_evaluation_metrics plots/
+
+*.mp3
+*.wav
+*.flac
+*.pt
+*.pth
+*.npy
+*.zip
+*.tar.gz
+
+.DS_Store
