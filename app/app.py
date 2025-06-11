@@ -75,6 +75,7 @@ if role == "Curator":
 
     tab1, tab2, tab3 = st.tabs(["Create New Drop", "Edit Existing Drop", "Submissions Overview"])
     
+    # create drop tab
     with tab1:
         st.markdown("# Create New Drop")
 
@@ -136,7 +137,7 @@ if role == "Curator":
             st.session_state.drops.append(drop)
             st.success(f"Drop '{drop_name}' created!")
 
-    # edit drop
+    # edit drop tab
     with tab2:
         st.markdown("# Edit Existing Drop")
 
@@ -163,16 +164,7 @@ if role == "Curator":
 
             st.markdown("#### Adjust Recall vs Precision")
             st.markdown("Left = Lower Threshold (More Recall), Right = Higher Threshold (More Precision)")
-            new_slider = st.slider(
-                label="",
-                min_value=0.0,
-                max_value=1.0,
-                value=0.5,
-                step=0.01,
-                format="",
-                label_visibility="collapsed",
-                key="edit_slider"
-            )
+            new_slider = st.slider(label="", min_value=0.0, max_value=1.0, value=0.5, step=0.01, format="", label_visibility="collapsed", key="edit_slider")
             st.markdown(f"**Preference: {'Less Genre Precision' if new_slider <= 0.33 else 'More Genre Precision' if new_slider >= 0.67 else 'Balanced'}**")
 
             # save changes button
@@ -194,7 +186,7 @@ if role == "Curator":
                 st.session_state.drops.pop(index)
                 st.success("Drop deleted.")
     
-    # submissions overview
+    # submissions overview tab
     with tab3:
         st.markdown("# Submissions Overview")
 
@@ -274,6 +266,7 @@ elif role == "Producer":
     demo_drops = [drop for drop in st.session_state.drops if drop['type'] == 'Demo']
     promo_drops = [drop for drop in st.session_state.drops if drop['type'] == 'Promo']
 
+    # avaliable drops
     def show_drop_cards(drops, label):
         if drops:
             st.markdown(f"### {label}")
@@ -293,6 +286,7 @@ elif role == "Producer":
                         st.session_state.selected_drop_id = drop["id"]
                         st.rerun()                  
 
+                    # upload submission
                     if st.session_state.get("selected_drop_id") == drop["id"]:
                         audio_file = st.file_uploader("Drop Submission", type=["wav", "mp3"], key=f"uploader_{drop['id']}", label_visibility="collapsed")
                         if audio_file is not None:
