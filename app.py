@@ -17,9 +17,23 @@ def load_model():
 
 model = load_model()
 
-# taxonomy definition
+# taxonomy and respective thresholds
 GENRE_THRESHOLDS = {'Disco': 0.23, 'Drum n Bass': 0.8, 'Hard Techno': 0.9, 'Progressive House': 0.47, 'Psy-Trance': 0.64, 'Techno': 0.74, 'Trance': 0.45}
 ALLOWED_GENRES = list(GENRE_THRESHOLDS.keys())
+
+# compute dynamic threshold
+def compute_threshold(best_th, slider_pos, max_delta=0.25):
+    
+    # distance to 0.5
+    distance = abs(best_th - 0.5) * 2
+
+    # amount of variation
+    delta = max_delta * (1 - distance)
+
+    # adjusted threshold
+    adjusted_th = best_th * (1 + delta * (slider_pos - 0.5) * 2)
+
+    return round(min(max(adjusted_th, 0), 1), 4)
 
 # audio preprocessing
 def find_loudest_segment(audio_path, target_duration=30.0):
@@ -120,11 +134,10 @@ if role == "Curator":
 
         if st.button("Create Drop"):
             drop_id = str(uuid.uuid4())[:8]
-            thresholds = {}
-            for genre in selected_genres:
-                base_th = GENRE_THRESHOLDS[genre]
-                adjustment = 1.25 - 0.5 * slider_pos
-                thresholds[genre] = round(base_th * adjustment, 2)
+            thresholds = {
+                genre: compute_threshold(GENRE_THRESHOLDS[genre], slider_pos)
+                for genre in selected_genres
+            }
 
             drop = {
                 "id": drop_id,
@@ -169,8 +182,10 @@ if role == "Curator":
 
             # save changes button
             if st.button("Save Changes"):
-                adjustment = 1.25 - 0.5 * new_slider
-                thresholds = {genre: round(GENRE_THRESHOLDS[genre] * adjustment, 2) for genre in new_genres}
+                thresholds = {
+                    genre: compute_threshold(GENRE_THRESHOLDS[genre], new_slider)
+                    for genre in new_genres
+                }
 
                 st.session_state.drops[index] = {
                     "id": drop["id"],
