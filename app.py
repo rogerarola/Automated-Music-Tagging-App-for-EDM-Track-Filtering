@@ -224,7 +224,7 @@ if role == "Curator":
 
                 # matched songs list
                 st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
-                st.markdown("#### Matched Songs")
+                st.markdown("#### Matching Submissions")
                 if matched:
                     render_song_list(matched, "#f1f3f6", "#333333")
                 else:
@@ -232,7 +232,7 @@ if role == "Curator":
 
                 # unmatched songs list
                 st.markdown("<div style='margin-bottom: 10px;'></div>", unsafe_allow_html=True)
-                st.markdown("#### Unmatched Songs")
+                st.markdown("#### Non-Matching Submissions")
                 if unmatched:
                     render_song_list(unmatched, "#f1f3f6", "#333333")
                 else:
