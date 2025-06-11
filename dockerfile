@@ -1,6 +1,6 @@
 FROM python:3.10
 
-# Install system dependencies needed
+# install system dependencies
 RUN apt update && apt install -y \
     ffmpeg \
     libfftw3-dev \
@@ -15,13 +15,13 @@ RUN apt update && apt install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
+# install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your app folder
+# copy app folder
 COPY . /app
 WORKDIR /app
 
-# Run the Streamlit app from inside the app folder
+# run Streamlit app
 CMD ["streamlit", "run", "app/app.py", "--server.port=7860", "--server.enableCORS=false"]
