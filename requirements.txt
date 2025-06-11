@@ -1,0 +1,10 @@
+streamlit
+streamlit-option-menu
+librosa
+essentia
+ffmpeg-python
+numpy
+pandas
+scikit-learn
+matplotlib
+tqdm

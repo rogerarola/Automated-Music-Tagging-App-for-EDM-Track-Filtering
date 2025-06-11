@@ -80,33 +80,20 @@ if role == "Curator":
 
         # name drop
         st.markdown("#### Drop Name")
-        drop_name = st.text_input("", placeholder="Enter a name for this drop", label_visibility="collapsed")
+        drop_name = st.text_input("Drop Name", placeholder="Enter a name for this drop", label_visibility="collapsed")
 
         # drop type
         st.markdown("#### Drop Type")
-        drop_type = st.radio(
-            label="", 
-            options=["Demo", "Promo"], 
-            horizontal=True,
-            label_visibility="collapsed"
-        )
+        drop_type = st.radio(label="Drop Type", options=["Demo", "Promo"], horizontal=True, label_visibility="collapsed")
 
         # genre selection
         st.markdown("#### Select Genres")
-        selected_genres = st.multiselect("", ALLOWED_GENRES, label_visibility="collapsed")
+        selected_genres = st.multiselect("Select Genres", ALLOWED_GENRES, label_visibility="collapsed")
 
         # slider
         st.markdown("#### Recall vs Precision")
         st.markdown("Left = Lower Threshold (More Recall), Right = Higher Threshold (More Precision)")
-        slider_pos = st.slider(
-            label="",
-            min_value=0.0,
-            max_value=1.0,
-            value=0.5,
-            step=0.01,
-            format="",
-            label_visibility="collapsed"
-        )
+        slider_pos = st.slider(label="Recall vs Precision", min_value=0.0, max_value=1.0, value=0.5, step=0.01, format="", label_visibility="collapsed")
         st.markdown(f"**Preference: {'Less Genre Precision' if slider_pos <= 0.33 else 'More Genre Precision' if slider_pos >= 0.67 else 'Balanced'}**")
 
         # drop creation button
@@ -158,11 +145,7 @@ if role == "Curator":
             st.warning("No drops to edit yet.")
         else:
             st.markdown("#### Select a Drop to Edit")
-            drop_to_edit = st.selectbox(
-                label="",
-                options=[f"{drop['type'].title()} Drop: {drop['name']}" for drop in st.session_state.drops],
-                label_visibility="collapsed"
-            )
+            drop_to_edit = st.selectbox(label="Select a Drop to Edit", options=[f"{drop['type'].title()} Drop: {drop['name']}" for drop in st.session_state.drops], label_visibility="collapsed")
 
             index = next(i for i, d in enumerate(st.session_state.drops)
                             if f"{d['type'].title()} Drop: {d['name']}" == drop_to_edit)
@@ -170,20 +153,13 @@ if role == "Curator":
 
             # edit
             st.markdown("#### Edit Drop Name")
-            new_name = st.text_input("", drop["name"], label_visibility="collapsed", key="edit_name")
+            new_name = st.text_input("Edit Drop Name", drop["name"], label_visibility="collapsed", key="edit_name")
 
             st.markdown("#### Edit Drop Type")
-            new_type = st.radio(
-                label="",
-                options=["Demo", "Promo"],
-                index=["Demo", "Promo"].index(drop["type"]),
-                horizontal=True,
-                label_visibility="collapsed",
-                key="edit_type"
-            )
+            new_type = st.radio(label="dit Drop Type", options=["Demo", "Promo"], index=["Demo", "Promo"].index(drop["type"]), horizontal=True, label_visibility="collapsed", key="edit_type")
 
             st.markdown("#### Edit Genres")
-            new_genres = st.multiselect("", ALLOWED_GENRES, default=drop["genres"], label_visibility="collapsed", key="edit_genres")
+            new_genres = st.multiselect("Edit Genres", ALLOWED_GENRES, default=drop["genres"], label_visibility="collapsed", key="edit_genres")
 
             st.markdown("#### Adjust Recall vs Precision")
             st.markdown("Left = Lower Threshold (More Recall), Right = Higher Threshold (More Precision)")
@@ -226,7 +202,7 @@ if role == "Curator":
             st.warning("No drops created yet.")
         else:
             st.markdown("#### Select Drop")
-            selected = st.selectbox("", [drop["name"] for drop in st.session_state.drops], label_visibility="collapsed")
+            selected = st.selectbox("Select Drop", [drop["name"] for drop in st.session_state.drops], label_visibility="collapsed")
             selected_drop = next(d for d in st.session_state.drops if d["name"] == selected)
             submissions = [s for s in st.session_state.submissions if s["drop_id"] == selected_drop["id"]]
 
@@ -318,7 +294,7 @@ elif role == "Producer":
                         st.rerun()                  
 
                     if st.session_state.get("selected_drop_id") == drop["id"]:
-                        audio_file = st.file_uploader("", type=["wav", "mp3"], key=f"uploader_{drop['id']}", label_visibility="collapsed")
+                        audio_file = st.file_uploader("Drop Submission", type=["wav", "mp3"], key=f"uploader_{drop['id']}", label_visibility="collapsed")
                         if audio_file is not None:
                             processed_path = convert_audio_to_30s_segment(audio_file)
                             audio = MonoLoader(filename=processed_path, sampleRate=16000)()
