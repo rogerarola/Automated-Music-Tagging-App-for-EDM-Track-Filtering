@@ -157,14 +157,14 @@ if role == "Curator":
             new_name = st.text_input("Edit Drop Name", drop["name"], label_visibility="collapsed", key="edit_name")
 
             st.markdown("#### Edit Drop Type")
-            new_type = st.radio(label="dit Drop Type", options=["Demo", "Promo"], index=["Demo", "Promo"].index(drop["type"]), horizontal=True, label_visibility="collapsed", key="edit_type")
+            new_type = st.radio(label="Edit Drop Type", options=["Demo", "Promo"], index=["Demo", "Promo"].index(drop["type"]), horizontal=True, label_visibility="collapsed", key="edit_type")
 
             st.markdown("#### Edit Genres")
             new_genres = st.multiselect("Edit Genres", ALLOWED_GENRES, default=drop["genres"], label_visibility="collapsed", key="edit_genres")
 
             st.markdown("#### Adjust Recall vs Precision")
             st.markdown("Left = Lower Threshold (More Recall), Right = Higher Threshold (More Precision)")
-            new_slider = st.slider(label="", min_value=0.0, max_value=1.0, value=0.5, step=0.01, format="", label_visibility="collapsed", key="edit_slider")
+            new_slider = st.slider(label="Adjust Recall vs Precision", min_value=0.0, max_value=1.0, value=0.5, step=0.01, format="", label_visibility="collapsed", key="edit_slider")
             st.markdown(f"**Preference: {'Less Genre Precision' if new_slider <= 0.33 else 'More Genre Precision' if new_slider >= 0.67 else 'Balanced'}**")
 
             # save changes button
@@ -301,9 +301,9 @@ elif role == "Producer":
 
                             matches = [g for g, s in genre_scores if s >= drop["thresholds"][g]]
                             if matches:
-                                st.success(f"Your track fits the drop! Thank you for your submission.")
+                                st.success("Your track has been submitted, thank you!")
                             else:
-                                st.error("Your track does not meet this drop's criteria.")
+                                st.warning("The submitted track does not meet the criteria defined for this drop. It will still be available for curators to review, though it may not be prioritised.")
                             
                             # save submissions
                             st.session_state.submissions.append({
