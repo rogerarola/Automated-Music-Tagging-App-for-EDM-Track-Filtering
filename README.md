@@ -1,8 +1,8 @@
 ---
 title: Automated Music Tagging for EDM Track Filtering
-emoji: 🎶
-colorFrom: purple
-colorTo: indigo
+emoji: 🎧
+colorFrom: indigo
+colorTo: purple
 sdk: docker
 pinned: false
 ---
