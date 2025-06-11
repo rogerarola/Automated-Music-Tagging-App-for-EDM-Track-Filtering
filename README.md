@@ -1,3 +1,12 @@
+---
+title: Automated Music Tagging for EDM Track Filtering
+emoji: 🎶
+colorFrom: purple
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # Automated-Music-Tagging-for-EDM-Track-Filtering
 
 This project is a Streamlit-based application for automated genre tagging of Electronic Dance Music (EDM) tracks. It is built on top of the [MAEST](https://github.com/palonsom/MAEST) model and uses the [Essentia](https://essentia.upf.edu/) library for audio feature extraction.
