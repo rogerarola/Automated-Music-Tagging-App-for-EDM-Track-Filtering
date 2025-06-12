@@ -131,7 +131,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-PLOTS = "evaluation/compute_evaluation_metrics plots"
+PLOTS = "evaluation/evaluate_maest_plots"
 FULL_PREDICTION_CSV = "evaluation/maest_full_predictions.csv"
 full_df = pd.read_csv(FULL_PREDICTION_CSV)
 genre_columns = [col for col in full_df.columns if col != "file"]
